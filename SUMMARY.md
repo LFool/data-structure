@@ -21,4 +21,5 @@
   * [排序](chang-yong-suan-fa/pai-xu.md)
   * [二叉树遍历](chang-yong-suan-fa/er-cha-shu-bian-li.md)
   * [二叉树深度](chang-yong-suan-fa/er-cha-shu-shen-du.md)
+  * [最近公共祖先](chang-yong-suan-fa/zui-jin-gong-gong-zu-xian.md)
 
