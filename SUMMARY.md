@@ -18,6 +18,6 @@
 * [树](shu.md)
 * [图](tu.md)
 * [常用算法](chang-yong-suan-fa/README.md)
-  * [查找](chang-yong-suan-fa/cha-zhao.md)
   * [排序](chang-yong-suan-fa/pai-xu.md)
+  * [二叉树遍历](chang-yong-suan-fa/er-cha-shu-bian-li.md)
 
