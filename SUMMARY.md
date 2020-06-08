@@ -20,4 +20,5 @@
 * [常用算法](chang-yong-suan-fa/README.md)
   * [排序](chang-yong-suan-fa/pai-xu.md)
   * [二叉树遍历](chang-yong-suan-fa/er-cha-shu-bian-li.md)
+  * [二叉树深度](chang-yong-suan-fa/er-cha-shu-shen-du.md)
 
