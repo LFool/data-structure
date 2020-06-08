@@ -162,3 +162,23 @@ public List<Integer> postorderTraversal(TreeNode root) {
 
 ## 4. 层序遍历
 
+```java
+public List<List<Integer>> levelOrder(TreeNode root) {
+    List<List<Integer>> resultList = new ArrayList<>();
+    if (root == null) return resultList;
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.add(root);
+    while (!queue.isEmpty()) {
+        List<Integer> list = new ArrayList<>();
+        int size = queue.size();
+        for (int i = 0; i < size; i++) {
+            if (queue.peek().left != null) queue.add(queue.peek().left);
+            if (queue.peek().right != null) queue.add(queue.peek().right);
+            list.add(queue.poll().val);
+        }
+        resultList.add(list);
+    }
+    return resultList;
+}
+```
+
