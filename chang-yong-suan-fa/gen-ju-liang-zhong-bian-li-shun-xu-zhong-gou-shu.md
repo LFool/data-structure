@@ -1,6 +1,6 @@
 # 根据两种遍历顺序重构树
 
-## 先序 + 中序
+## 1. 先序 + 中序
 
 ```java
 public TreeNode buildTree(int[] preorder, int[] inorder) {
@@ -28,4 +28,10 @@ public TreeNode helper(int[] preorder, int pb, int pe, Map<Integer, Integer> map
     
 }
 ```
+
+## 2. 中序 + 后序
+
+## 3. 先序 + 后序
+
+## 4. 先序 + 二叉搜索树
 
