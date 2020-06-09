@@ -1,27 +1,9 @@
 # 二叉树遍历
 
-```java
-/**
- * Definition for a binary tree node.
- */
-public class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode() {}
-    TreeNode(int val) { this.val = val; }
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-```
-
 ## 1. 先序遍历
 
-### 递归实现
-
+{% tabs %}
+{% tab title="递归" %}
 ```java
 public List<Integer> preorderTraversal(TreeNode root) {
     
@@ -41,9 +23,9 @@ private void preorderTraversal(TreeNode root, List<Integer> list) {
 
 }
 ```
+{% endtab %}
 
-### 迭代实现
-
+{% tab title="迭代" %}
 ```java
 public List<Integer> preorderTraversal(TreeNode root) {
 
@@ -64,11 +46,13 @@ public List<Integer> preorderTraversal(TreeNode root) {
     return res;
 }
 ```
+{% endtab %}
+{% endtabs %}
 
 ## 2. 中序遍历
 
-### 递归实现
-
+{% tabs %}
+{% tab title="递归" %}
 ```java
 public List<Integer> inorderTraversal(TreeNode root) {
     
@@ -88,9 +72,9 @@ private void inorderTraversal(TreeNode root, List<Integer> list) {
     
 }
 ```
+{% endtab %}
 
-### 迭代实现
-
+{% tab title="迭代" %}
 ```java
 public List<Integer> inorderTraversal(TreeNode root) {
     
@@ -111,11 +95,13 @@ public List<Integer> inorderTraversal(TreeNode root) {
     return res;
 }
 ```
+{% endtab %}
+{% endtabs %}
 
 ## 3. 后序遍历
 
-### 递归实现
-
+{% tabs %}
+{% tab title="递归" %}
 ```java
 public List<Integer> postorderTraversal(TreeNode root) {
 
@@ -135,9 +121,9 @@ private void postorderTraversal(TreeNode root, List<Integer> list) {
 
 }
 ```
+{% endtab %}
 
-### 迭代实现
-
+{% tab title="迭代" %}
 ```java
 public List<Integer> postorderTraversal(TreeNode root) {
 
@@ -159,6 +145,28 @@ public List<Integer> postorderTraversal(TreeNode root) {
     return res;
 }
 ```
+{% endtab %}
+{% endtabs %}
 
 ## 4. 层序遍历
+
+```java
+public List<List<Integer>> levelOrder(TreeNode root) {
+    List<List<Integer>> resultList = new ArrayList<>();
+    if (root == null) return resultList;
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.add(root);
+    while (!queue.isEmpty()) {
+        List<Integer> list = new ArrayList<>();
+        int size = queue.size();
+        for (int i = 0; i < size; i++) {
+            if (queue.peek().left != null) queue.add(queue.peek().left);
+            if (queue.peek().right != null) queue.add(queue.peek().right);
+            list.add(queue.poll().val);
+        }
+        resultList.add(list);
+    }
+    return resultList;
+}
+```
 
