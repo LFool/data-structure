@@ -57,3 +57,33 @@ private void backtrack (List<List<Integer>> list,
 }
 ```
 
+## 3. Permutations
+
+{% embed url="https://leetcode.com/problems/permutations/" %}
+
+```java
+public List<List<Integer>> permute(int[] nums) {
+
+    List<List<Integer>> res = new ArrayList<>();
+    Arrays.sort(nums);
+    backtrack(res, new ArrayList<>(), nums);
+
+    return res;
+}
+
+private void backtrack (List<List<Integer>> list, 
+                        List<Integer> track, int[] nums) {
+
+    if (track.size() == nums.length) list.add(new ArrayList<>(track));
+
+    for (int i = 0; i < nums.length; i++) {
+
+        if (track.contains(nums[i])) continue;
+
+        track.add(nums[i]);
+        backtrack(list, track, nums);
+        track.remove(track.size() - 1);
+    }
+}
+```
+
