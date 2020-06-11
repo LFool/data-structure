@@ -8,7 +8,7 @@
 public List<List<Integer>> subsets(int[] nums) {
     
     List<List<Integer>> res = new ArrayList<>();
-    
+    Arrays.sort(nums);
     backtrack(res, new ArrayList<>(), nums, 0);
     
     return res;
