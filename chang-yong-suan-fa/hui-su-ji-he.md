@@ -180,14 +180,14 @@ public List<List<Integer>> combinationSum2(int[] candidates, int target) {
 
     Arrays.sort(candidates);
 
-    backtrack(res, new ArrayList<>(), new boolean[candidates.length], candidates, target, 0);
+    backtrack(res, new ArrayList<>(), candidates, target, 0);
 
     return res;
 
 }
 
 private void backtrack(List<List<Integer>> list, List<Integer> track, 
-                       boolean[] used, int[] candidates, int target, int start) {
+                       int[] candidates, int target, int start) {
     if (target == 0) {
         list.add(new ArrayList<>(track));
         return ;
@@ -196,18 +196,57 @@ private void backtrack(List<List<Integer>> list, List<Integer> track,
 
     for (int i = start; i < candidates.length; i++) {
 
-        if (used[i]) continue;
-        if (i > start && candidates[i] == candidates[i - 1] && !used[i - 1]) continue;
+        if (i > start && candidates[i] == candidates[i - 1]) continue;
 
-        used[i] = true;
         track.add(candidates[i]);
 
-        backtrack(list, track, used, candidates, target - candidates[i], i + 1);
+        backtrack(list, track, candidates, target - candidates[i], i + 1);
 
-        used[i] = false;
         track.remove(track.size() - 1);
 
     }
+}
+```
+
+## 7. Palindrome Partitioning
+
+{% embed url="https://leetcode.com/problems/palindrome-partitioning/" %}
+
+```java
+public List<List<String>> partition(String s) {
+
+    List<List<String>> res = new ArrayList<>();
+
+    backtrack(res, new ArrayList<>(), s, 0);
+
+    return res;
+
+}
+
+private void backtrack(List<List<String>> list, List<String> track, String s, int start) {
+
+    if (s.length() == start) {
+        list.add(new ArrayList<>(track));
+        return ;
+    }
+    for (int i = start; i < s.length(); i++) {
+        if (isPalindrome(s, start, i)) {
+            track.add(s.substring(start, i + 1));
+            backtrack(list, track, s, i + 1);
+            track.remove(track.size() - 1);
+        }
+    }
+
+}
+
+private boolean isPalindrome (String s, int left, int right) {
+
+    while (left < right) {
+        if (s.charAt(left) != s.charAt(right)) return false;
+        left++;
+        right--;
+    }
+    return true;
 }
 ```
 
