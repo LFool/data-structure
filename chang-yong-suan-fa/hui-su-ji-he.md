@@ -30,5 +30,9 @@ private void backtrack (List<List<Integer>> list,
 }
 ```
 
+## 2. Subsets II \(contains duplicates\)
+
+{% embed url="https://leetcode.com/problems/subsets-ii/" %}
+
 
 
