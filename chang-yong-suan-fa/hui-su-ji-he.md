@@ -20,9 +20,6 @@ private void backtrack (List<List<Integer>> list,
     list.add(new ArrayList<>(track));
     
     for (int i = start; i < nums.length; i++) {
-        
-        if (track.contains(nums[i])) continue;
-        
         track.add(nums[i]);
         backtrack(list, track, nums, i + 1);
         track.remove(track.size() - 1);
@@ -34,5 +31,29 @@ private void backtrack (List<List<Integer>> list,
 
 {% embed url="https://leetcode.com/problems/subsets-ii/" %}
 
+```java
+public List<List<Integer>> subsetsWithDup(int[] nums) {
 
+    List<List<Integer>> res = new ArrayList<>();
+    Arrays.sort(nums);
+    backtrack(res, new ArrayList<>(), nums, 0);
+
+    return res;
+}
+
+private void backtrack (List<List<Integer>> list, 
+                        List<Integer> track, int[] nums, int start) {
+
+    list.add(new ArrayList<>(track));
+
+    for (int i = start; i < nums.length; i++) {
+
+        if (i > start && nums[i] == nums[i - 1]) continue;
+
+        track.add(nums[i]);
+        backtrack(list, track, nums, i + 1);
+        track.remove(track.size() - 1);
+    }
+}
+```
 
