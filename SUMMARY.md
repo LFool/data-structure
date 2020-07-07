@@ -25,4 +25,5 @@
   * [最近公共祖先](chang-yong-suan-fa/zui-jin-gong-gong-zu-xian.md)
   * [回溯集合](chang-yong-suan-fa/hui-su-ji-he.md)
   * [N Sum](chang-yong-suan-fa/n-sum.md)
+* [常用算法时间复杂度速查表](chang-yong-suan-fa-shi-jian-fu-za-du-su-cha-biao.md)
 
