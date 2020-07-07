@@ -24,4 +24,5 @@
   * [二叉树深度](chang-yong-suan-fa/er-cha-shu-shen-du.md)
   * [最近公共祖先](chang-yong-suan-fa/zui-jin-gong-gong-zu-xian.md)
   * [回溯集合](chang-yong-suan-fa/hui-su-ji-he.md)
+  * [N Sum](chang-yong-suan-fa/n-sum.md)
 
