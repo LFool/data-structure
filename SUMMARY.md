@@ -1,6 +1,6 @@
 # Table of contents
 
-* [写在前面的一些话](README.md)
+* [基本概念](README.md)
 * [线性表](xian-xing-biao/README.md)
   * [顺序表](xian-xing-biao/shun-xu-biao/README.md)
     * [基本概念](xian-xing-biao/shun-xu-biao/ji-ben-gai-nian.md)
