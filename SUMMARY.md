@@ -2,11 +2,7 @@
 
 * [基本概念](README.md)
 * [线性表](xian-xing-biao/README.md)
-  * [顺序表](xian-xing-biao/shun-xu-biao/README.md)
-    * [基本概念](xian-xing-biao/shun-xu-biao/ji-ben-gai-nian.md)
-    * [代码实现](xian-xing-biao/shun-xu-biao/dai-ma-shi-xian.md)
-    * [重点](xian-xing-biao/shun-xu-biao/zhong-dian.md)
-    * [题目](xian-xing-biao/shun-xu-biao/ti-mu.md)
+  * [顺序表](xian-xing-biao/shun-xu-biao.md)
   * [链表](xian-xing-biao/lian-biao.md)
 * [栈](zhan/README.md)
   * [基本概念](zhan/ji-ben-gai-nian.md)
