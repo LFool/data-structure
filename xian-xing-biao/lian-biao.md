@@ -79,5 +79,33 @@ List Find(ElementType X, List PtrL) {
 * 再找到链表的第 i-1 个结点，用 p 指向
 * 然后修改指针，插入结点（p 之后插入新结点是 s）
 
+```cpp
+List Insert(ElementType X, int i, List PtrL) {
+    List p, s;
+    if (i == 1) {
+        s = (List)malloc(sizeof(struct LNode));
+        s->Data = X;
+        s->next = PtrL;
+        return s;
+    }
+    p = FindKth(i - 1, PtrL);
+    if (p == NULL) {
+        printf("参数 i 错误\n");
+        return;
+    } else {
+        s = (List)malloc(sizeof(struct LNode));
+        s->Data = X;
+        s->next = p->next;
+        p->next = s;
+        return PtrL;
+    }
+}
+```
+
+**平均查找次数为** $$n/2$$ **，平均时间性能为** $$O(n)$$ ****
+
 ### 2.4 删除（删除表的第 $$i (1 \le i \le n)$$ 个位置上的元素）
+
+* 先找到链表的第 i-1 个结点，用 p 指向
+* 再用
 
