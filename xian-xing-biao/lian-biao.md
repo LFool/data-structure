@@ -107,5 +107,37 @@ List Insert(ElementType X, int i, List PtrL) {
 ### 2.4 删除（删除表的第 $$i (1 \le i \le n)$$ 个位置上的元素）
 
 * 先找到链表的第 i-1 个结点，用 p 指向
-* 再用
+* 再用指针 s 指向要被删除的结点（p 的下一个结点）
+* 然后修改指针，删除 s 所指结点
+* 最后释放 s 所指结点的空间
+
+```cpp
+List Delete(int i, List PtrL) {
+    List p, s;
+    if (i == 1) {
+        s = PtrL;
+        if (PtrL != NULL)
+            PtrL = PtrL->next;
+        else
+            return NULL;
+        free(s);
+        return PtrL;
+    }
+    p = FindKth(i - 1, PtrL);
+    if (p == NULL) {
+        printf("第%d个结点不存在\n", i - 1);
+        return NULL;
+    } else if (p->next == NULL) {
+        printf("第%d个结点不存在\n", i);
+        return NULL;
+    } else {
+        s = p->next;
+        p->next = s->next;
+        free(s);
+        return PtrL;
+    }
+}
+```
+
+**平均查找次数为** $$n/2$$ **，平均时间性能为** $$O(n)$$ ****
 

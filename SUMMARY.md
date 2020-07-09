@@ -4,6 +4,7 @@
 * [线性表](xian-xing-biao/README.md)
   * [顺序表](xian-xing-biao/shun-xu-biao.md)
   * [链表](xian-xing-biao/lian-biao.md)
+  * [广义表](xian-xing-biao/guang-yi-biao.md)
 * [栈](zhan/README.md)
   * [基本概念](zhan/ji-ben-gai-nian.md)
   * [代码实现](zhan/dai-ma-shi-xian.md)
