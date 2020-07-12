@@ -10,6 +10,7 @@
 * [字符串](zi-fu-chuan.md)
 * [树](shu/README.md)
   * [二叉树](shu/er-cha-shu.md)
+  * [二叉搜索树](shu/er-cha-sou-suo-shu.md)
 * [图](tu.md)
 * [常用算法](chang-yong-suan-fa/README.md)
   * [排序](chang-yong-suan-fa/pai-xu.md)
