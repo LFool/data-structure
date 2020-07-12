@@ -69,13 +69,102 @@
 typedef struct TreeNode* BinTree;
 typedef BinTree Position;
 struct TreeNode {
-    ElementType Data;
-    BinTree Left;
-    BinTree Right;
+    ElementType val;
+    BinTree left;
+    BinTree right;
 };
 ```
 
 ## 5. 二叉树的遍历
+
+### 5.1 先序遍历
+
+{% tabs %}
+{% tab title="Recursive" %}
+```cpp
+vector<int> preorderTraversal(TreeNode* root) {
+    vector<int> res;
+    
+    preorderTraversal(root, res);
+    
+    return res;
+}
+
+void preorderTraversal(TreeNode* root, vector<int>& v) {
+
+    if (root) {
+        v.push_back(root -> val);
+        preorderTraversal(root -> left, v);
+        preorderTraversal(root -> right, v);
+    }
+}
+```
+{% endtab %}
+
+{% tab title="Iterative" %}
+```cpp
+vector<int> preorderTraversal(TreeNode* root) {
+    vector<int> res;
+    stack<TreeNode*> stack;
+
+    while (root || !stack.empty()) {
+        while (root) {
+            res.push_back(root -> val);
+            stack.push(root);
+            root = root -> left;
+        }
+
+        root = stack.top();
+        stack.pop();
+        root = root -> right;
+    }
+    return res;
+}
+```
+{% endtab %}
+{% endtabs %}
+
+### 5.2 中序遍历
+
+{% tabs %}
+{% tab title="Recursive" %}
+```cpp
+void inorderTraversal(TreeNode* root, vector<int>& v) {
+    if (root) {
+        inorderTraversal(root -> left, v);
+        v.push_back(root -> val);
+        inorderTraversal(root -> right, v);
+    }
+}
+```
+{% endtab %}
+
+{% tab title="Iterative" %}
+```cpp
+vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> res;
+    stack<TreeNode*> stack;
+
+    while (root || !stack.empty()) {
+        while (root) {
+            stack.push(root);
+            root = root -> left;
+        }
+
+        root = stack.top();
+        stack.pop();
+        res.push_back(root -> val);
+        root = root -> right;
+    }
+    return res;
+}
+```
+{% endtab %}
+{% endtabs %}
+
+### 5.3 后序遍历
+
+### 5.4 层序遍历
 
 
 
