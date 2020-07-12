@@ -12,7 +12,7 @@
 
 **斜二叉树（Skewed Binary Tree）**
 
-![](../.gitbook/assets/image%20%2811%29.png)
+![](../.gitbook/assets/image%20%2812%29.png)
 
 **完美二叉树（Perfect Binary Tree）/ 满二叉树（Full Binary Tree）**
 
@@ -52,6 +52,30 @@
 * `void InOrderTraversal(BinTree BT)` ：中序（左子树、根、右子树）
 * `void PostOrderTraversal(BinTree BT)` ：后序（左子树、右子树、根）
 * `void LevelOrderTraversal(BinTree BT)` ：层次遍历（从上到下、从左到右）
+
+## 4. 二叉树的存储结构
+
+### 4.1 顺序存储结构
+
+利用数组存储，结点下标从 1 开始计数，结点 $$i$$ 的左孩子下标为 $$2i$$ ，右孩子下标为 $$2i + 1$$ 
+
+若一棵树非完全二叉树，就会造成空间浪费
+
+![](../.gitbook/assets/image%20%2810%29.png)
+
+### 4.2 链式存储结构
+
+```cpp
+typedef struct TreeNode* BinTree;
+typedef BinTree Position;
+struct TreeNode {
+    ElementType Data;
+    BinTree Left;
+    BinTree Right;
+};
+```
+
+## 5. 二叉树的遍历
 
 
 
