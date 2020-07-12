@@ -82,20 +82,11 @@ struct TreeNode {
 {% tabs %}
 {% tab title="Recursive" %}
 ```cpp
-vector<int> preorderTraversal(TreeNode* root) {
-    vector<int> res;
-    
-    preorderTraversal(root, res);
-    
-    return res;
-}
-
 void preorderTraversal(TreeNode* root, vector<int>& v) {
-
     if (root) {
-        v.push_back(root -> val);
-        preorderTraversal(root -> left, v);
-        preorderTraversal(root -> right, v);
+        v.push_back(root->val);
+        preorderTraversal(root->left, v);
+        preorderTraversal(root->right, v);
     }
 }
 ```
@@ -109,14 +100,14 @@ vector<int> preorderTraversal(TreeNode* root) {
 
     while (root || !stack.empty()) {
         while (root) {
-            res.push_back(root -> val);
+            res.push_back(root->val);
             stack.push(root);
-            root = root -> left;
+            root = root->left;
         }
 
         root = stack.top();
         stack.pop();
-        root = root -> right;
+        root = root->right;
     }
     return res;
 }
@@ -131,9 +122,9 @@ vector<int> preorderTraversal(TreeNode* root) {
 ```cpp
 void inorderTraversal(TreeNode* root, vector<int>& v) {
     if (root) {
-        inorderTraversal(root -> left, v);
-        v.push_back(root -> val);
-        inorderTraversal(root -> right, v);
+        inorderTraversal(root->left, v);
+        v.push_back(root->val);
+        inorderTraversal(root->right, v);
     }
 }
 ```
@@ -148,13 +139,13 @@ vector<int> inorderTraversal(TreeNode* root) {
     while (root || !stack.empty()) {
         while (root) {
             stack.push(root);
-            root = root -> left;
+            root = root->left;
         }
 
         root = stack.top();
         stack.pop();
-        res.push_back(root -> val);
-        root = root -> right;
+        res.push_back(root->val);
+        root = root->right;
     }
     return res;
 }
@@ -164,7 +155,98 @@ vector<int> inorderTraversal(TreeNode* root) {
 
 ### 5.3 后序遍历
 
+{% tabs %}
+{% tab title="Recursive" %}
+```cpp
+void postorderTraversal(TreeNode* root, vector<int>& v) {
+    if (root) {
+        postorderTraversal(root -> left, v);
+        postorderTraversal(root -> right, v);
+        v.push_back(root -> val);
+    }
+}
+```
+{% endtab %}
+
+{% tab title="Iterative" %}
+```cpp
+vector<int> postorderTraversal(TreeNode* root) {
+    vector<int> res;
+    stack<TreeNode*> stack;
+
+    while (root || !stack.empty()) {
+        while (root) {
+            stack.push(root);
+            if (root -> left) root = root->left;
+            else root = root->right;
+        }
+
+        TreeNode* node = stack.top();
+        stack.pop();
+        res.push_back(node->val);
+        if (!stack.empty() && stack.top()->left == node) {
+            root = stack.top()->right;
+        }
+    }
+
+    return res;
+}
+```
+{% endtab %}
+{% endtabs %}
+
 ### 5.4 层序遍历
+
+```cpp
+vector<vector<int>> levelOrder(TreeNode* root) {
+    vector<vector<int>> res;
+    if (!root) return res;
+    queue<TreeNode*> queue;
+    queue.push(root);
+
+    while (!queue.empty()) {
+        vector<int> temp;
+        int size = queue.size();
+        for (int i = 0; i < size; i++) {
+            TreeNode* node = queue.front();
+            queue.pop();
+            temp.push_back(node->val);
+            if (node->left) queue.push(node->left);
+            if (node->right) queue.push(node->right);
+        }
+        res.push_back(temp);
+    }
+
+    return res;
+}
+```
+
+## 6. 常用算法
+
+### 6.1 求二叉树中的叶子结点
+
+```cpp
+void preorderGetLeaves(TreeNode* root, vector<int>& v) {
+    if (root) {
+        if (!root->left && !root->right)
+            v.push_back(root->val);
+        preorderTraversal(root->left, v);
+        preorderTraversal(root->right, v);
+    }
+}
+```
+
+### 6.2 求二叉树的高度
+
+```cpp
+int postorderGetHeight(TreeNode* root) {
+    if (!root)
+        return 0;
+    int HL = postorderGetHeight(root->left);
+    int HR = postorderGetHeight(root->right);
+    return max(HL, HR) + 1;
+}
+```
 
 
 
