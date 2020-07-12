@@ -90,5 +90,59 @@ Position FindMin(BinTree BST) {
 
 ### 2.3 插入操作
 
+```cpp
+BinTree Insert(ElementType X, BinTree BST) {
+    if (!BST) {
+        BST = (BinTree)malloc(sizeof(struct TreeNode));
+        BST->val = X;
+        BST->left = BST->right = NULL;
+    } else {
+        if (X < BST->val) {
+            BST->left = Insert(X, BST->left);
+        } else if (X > BST->val) {
+            BST->right = Insert(X, BST->right);
+        }
+    }
+    return BST;
+}
+```
+
 ### 2.4 删除操作
+
+考虑三种情况：
+
+* 要删除的是**叶结点：**直接删除，然后修改其父结点指针，置为NULL
+* 要删除的结点**只有一个孩子结点：**将其**父结点**的指针**指向**要删除结点的**孩子结点**
+* 要删除的结点**有左、右两颗子树：**用另一结点代替被删除结点，**左子树最大元素** 或者 **右子树最小元素**
+
+```cpp
+BinTree Delete(ElementType X, BinTree BST) {
+    Position Tmp;
+    if (!BST)
+        return NULL;
+    if (X < BST->val) {
+        BST->left = Delete(X, BST->left);
+    } else if (X > BST->val) {
+        BST->right = Delete(X, BST->right);
+    } else {
+        if (BST->left && BST->right) {  // 情况三
+            Tmp = FindMax(BST->left);
+            BST->val = Tmp->val;
+            BST->left = Delete(BST->val, BST->left);
+            // Tmp = FindMin(BST->right);
+            // BST->val = Tmp->val;
+            // BST->right = Delete(BST->val, BST->right);
+        } else {
+            Tmp = BST;
+            if (!BST->left) {  // 左孩子为空或者无孩子结点
+                BST = BST->right;
+            } else if (!BST->right) {  // 右孩子为空或者无孩子结点
+                BST = BST->left;
+            }
+            free(Tmp);
+        }
+    }
+    return BST;
+}
+```
 
