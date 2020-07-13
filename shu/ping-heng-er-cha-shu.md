@@ -33,7 +33,7 @@
 
 **麻烦结点** 在发现者 **左**子树的 **右边**
 
-![](../.gitbook/assets/image%20%2811%29.png)
+![](../.gitbook/assets/image%20%2812%29.png)
 
 ### 2.4 RL旋转
 
