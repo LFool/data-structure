@@ -41,3 +41,212 @@
 
 ![](../.gitbook/assets/image%20%283%29.png)
 
+## 3. 实现
+
+```java
+class Node {
+    int key;
+    int height;
+    Node left;
+    Node right;
+
+    public Node(int val) {
+        this.key = val;
+        this.height = 1;
+    }
+}
+
+public class AVLTree {
+
+    Node root;
+
+    public int height(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        return node.height;
+    }
+
+    public int max(int a, int b) {
+        return Math.max(a, b);
+    }
+
+    /**
+     *      y                               x
+     *     / \     Right Rotation          /  \
+     *    x   T3   - - - - - - - >        T1   y
+     *   / \       < - - - - - - -            / \
+     *  T1  T2     Left Rotation            T2  T3
+     *
+     */
+    public Node rightRotate(Node y) {
+        Node x = y.left;
+        Node T2 = x.right;
+
+        // Perform rotation
+        x.right = y;
+        y.left = T2;
+
+        // Update heights
+        y.height = max(height(y.left), height(y.right)) + 1;
+        x.height = max(height(x.left), height(x.right)) + 1;
+
+        // Return new root
+        return x;
+    }
+
+    /**
+     *      y                               x
+     *     / \     Right Rotation          /  \
+     *    x   T3   - - - - - - - >        T1   y
+     *   / \       < - - - - - - -            / \
+     *  T1  T2     Left Rotation            T2  T3
+     *
+     */
+    public Node leftRotate(Node x) {
+        Node y = x.right;
+        Node T2 = y.left;
+
+        // Perform rotation
+        y.left = x;
+        x.right = T2;
+
+        // Update heights
+        x.height = max(height(x.left), height(x.right)) + 1;
+        y.height = max(height(y.left), height(y.right)) + 1;
+
+        // Return new root
+        return y;
+    }
+
+    /**
+     * Get Balance factor of node N
+     */
+    public int getBalance(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        return height(node.left) - height(node.right);
+    }
+
+    public Node insert(Node node, int key) {
+        /* 1. Perform the normal BST insertion */
+        if (node == null) {
+            return new Node(key);
+        }
+
+        if (key < node.key) {
+            node.left = insert(node.left, key);
+        } else if (key > node.key) {
+            node.right = insert(node.right, key);
+        } else { // Duplicate keys not allowed
+            return node;
+        }
+
+        /* 2. Update height of this ancestor node */
+        node.height = max(height(node.left), height(node.right)) + 1;
+
+        /* 3. Get the balance factor of this ancestor
+              node to check whether this node became
+              unbalance */
+        int balance = getBalance(node);
+
+        /**
+         * If this node become unbalance, then there
+         * are 4 cases Left Left Case
+         *          z                                      y
+         *         / \                                   /   \
+         *        y   T4      Right Rotate (z)          x      z
+         *       / \          - - - - - - - - ->      /  \    /  \
+         *      x   T3                               T1  T2  T3  T4
+         *     / \
+         *   T1   T2
+         */
+        if (balance > 1 && key < node.left.key) {
+            return rightRotate(node);
+        }
+
+        /**
+         * Right Right Case
+         *   z                                y
+         *  /  \                            /   \
+         * T1   y     Left Rotate(z)       z      x
+         *     /  \   - - - - - - - ->    / \    / \
+         *    T2   x                     T1  T2 T3  T4
+         *        / \
+         *      T3  T4
+         */
+        if (balance < -1 && key > node.right.key) {
+            return leftRotate(node);
+        }
+
+        /**
+         * Left Right Case
+         *      z                               z                           x
+         *     / \                            /   \                        /  \
+         *    y   T4  Left Rotate (y)        x    T4  Right Rotate(z)    y      z
+         *   / \      - - - - - - - - ->    /  \      - - - - - - - ->  / \    / \
+         * T1   x                          y    T3                    T1  T2 T3  T4
+         *     / \                        / \
+         *   T2   T3                    T1   T2
+         */
+        if (balance > 1 && key > node.left.key) {
+            node.left = leftRotate(node.left);
+            return rightRotate(node);
+        }
+
+        /**
+         * Right Left Case
+         *    z                            z                            x
+         *   / \                          / \                          /  \
+         * T1   y   Right Rotate (y)    T1   x      Left Rotate(z)   z      y
+         *     / \  - - - - - - - - ->     /  \   - - - - - - - ->  / \    / \
+         *    x   T4                      T2   y                  T1  T2  T3  T4
+         *   / \                              /  \
+         * T2   T3                           T3   T4
+         */
+        if (balance < -1 && key < node.right.key) {
+            node.right = rightRotate(node.right);
+            return leftRotate(node);
+        }
+
+        /* return the (unchanged) node pointer */
+        return node;
+    }
+
+    // A utility function to print preorder traversal
+    // of the tree.
+    // The function also prints height of every node
+    public void preOrder(Node node) {
+        if (node != null) {
+            System.out.print(node.key + " ");
+            preOrder(node.left);
+            preOrder(node.right);
+        }
+    }
+
+    public static void main(String[] args) {
+        AVLTree tree = new AVLTree();
+
+        /* Constructing tree given in the above figure */
+        tree.root = tree.insert(tree.root, 10);
+        tree.root = tree.insert(tree.root, 20);
+        tree.root = tree.insert(tree.root, 30);
+        tree.root = tree.insert(tree.root, 40);
+        tree.root = tree.insert(tree.root, 50);
+        tree.root = tree.insert(tree.root, 25);
+
+        /* The constructed AVL Tree would be
+             30
+            /  \
+          20   40
+         /  \     \
+        10  25    50
+        */
+        System.out.println("Preorder traversal" +
+                " of constructed tree is : ");
+        tree.preOrder(tree.root);
+    }
+}
+```
+
