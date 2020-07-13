@@ -12,6 +12,7 @@
   * [二叉树](shu/er-cha-shu.md)
   * [二叉搜索树](shu/er-cha-sou-suo-shu.md)
   * [平衡二叉树](shu/ping-heng-er-cha-shu.md)
+  * [堆](shu/dui.md)
 * [图](tu.md)
 * [常用算法](chang-yong-suan-fa/README.md)
   * [排序](chang-yong-suan-fa/pai-xu.md)
