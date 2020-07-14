@@ -12,7 +12,7 @@
 
 **斜二叉树（Skewed Binary Tree）**
 
-![](../.gitbook/assets/image%20%2817%29.png)
+![](../.gitbook/assets/image%20%2821%29.png)
 
 **完美二叉树（Perfect Binary Tree）/ 满二叉树（Full Binary Tree）**
 
@@ -61,7 +61,7 @@
 
 若一棵树非完全二叉树，就会造成空间浪费
 
-![](../.gitbook/assets/image%20%2815%29.png)
+![](../.gitbook/assets/image%20%2819%29.png)
 
 ### 4.2 链式存储结构
 

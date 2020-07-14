@@ -6,7 +6,7 @@
 
 ## 抽象数据结构复杂度
 
-![](.gitbook/assets/image%20%2818%29.png)
+![](.gitbook/assets/image%20%2822%29.png)
 
 ## 排序算法
 
@@ -18,7 +18,7 @@
 
 ## 堆操作
 
-![](.gitbook/assets/image%20%2816%29.png)
+![](.gitbook/assets/image%20%2820%29.png)
 
 ## 大 O 复杂度曲线
 

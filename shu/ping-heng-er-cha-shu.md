@@ -21,7 +21,7 @@
 
 **麻烦结点** 在发现者 **右**子树的 **右边**
 
-![](../.gitbook/assets/image%20%285%29.png)
+![](../.gitbook/assets/image%20%289%29.png)
 
 ### 2.2 LL旋转（左单旋）
 
@@ -33,13 +33,13 @@
 
 **麻烦结点** 在发现者 **左**子树的 **右边**
 
-![](../.gitbook/assets/image%20%2812%29.png)
+![](../.gitbook/assets/image%20%2817%29.png)
 
 ### 2.4 RL旋转
 
 **麻烦结点** 在发现者 **右**子树的 **左边**
 
-![](../.gitbook/assets/image%20%283%29.png)
+![](../.gitbook/assets/image%20%285%29.png)
 
 ## 3. 实现
 

@@ -29,5 +29,5 @@
 
 **儿子 - 兄弟表示法**
 
-![](../.gitbook/assets/image%20%2814%29.png)
+![](../.gitbook/assets/image%20%2818%29.png)
 

@@ -75,5 +75,5 @@ public class HuffmanTree {
 
 根据出现的频率，构造哈夫曼树，这样所需的代价最小
 
-![](../.gitbook/assets/image%20%289%29.png)
+![](../.gitbook/assets/image%20%2815%29.png)
 
