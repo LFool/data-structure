@@ -42,129 +42,267 @@
 ## 6. 最大堆的操作
 
 ```java
-public class MaxHeap {
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-    private int[] heap;
-    private int size;
-    private int maxsize;
+/**
+ * @author LFool
+ * @create 2020-07-14 16:48
+ */
+public class MaxPQ<T> implements Iterable<T> {
 
-    public MaxHeap(int maxsize) {
-        this.maxsize = maxsize;
-        this.size = 0;
-        heap = new int[this.maxsize + 1];
-        heap[0] = Integer.MAX_VALUE;
+    /**
+     * store items at indices 1 to n
+     */
+    private T[] pq;
+    /**
+     * number of items on priority queue
+     */
+    private int n;
+    /**
+     * optional comparator
+     */
+    private Comparator<T> comparator;
+
+    @SuppressWarnings("unchecked")
+    public MaxPQ(int initCapacity) {
+        pq = (T[]) new Object[initCapacity + 1];
+        n = 0;
     }
 
-    private int parent(int pos) {
-        return pos / 2;
+    public MaxPQ() {
+        this(1);
     }
 
-    private int leftChild(int pos) {
-        return 2 * pos;
+    @SuppressWarnings("unchecked")
+    public MaxPQ(int initCapacity, Comparator<T> comparator) {
+        this.comparator = comparator;
+        pq = (T[]) new Object[initCapacity + 1];
+        n = 0;
     }
 
-    private int rightChild(int pos) {
-        return 2 * pos + 1;
+    public MaxPQ(Comparator<T> comparator) {
+        this(1, comparator);
     }
 
-    private boolean isLeaf(int pos) {
-        return pos > size / 2 && pos <= size;
-    }
-
-    private void swap(int fpos, int spos) {
-        int tmp;
-        tmp = heap[fpos];
-        heap[fpos] = heap[spos];
-        heap[spos] = tmp;
-    }
-
-    private void recMaxHeapify(int pos) {
-        if (isLeaf(pos)) {
-            return ;
+    @SuppressWarnings("unchecked")
+    public MaxPQ(T[] elements) {
+        n = elements.length;
+        pq = (T[]) new Object[elements.length + 1];
+        System.arraycopy(elements, 0, pq, 1, elements.length);
+        // time complexity : logN
+        for (int k = n / 2; k >= 1; k--) {
+            sink(k);
         }
-        if (heap[pos] < heap[leftChild(pos)] || heap[pos] < heap[rightChild(pos)]) {
-            if (heap[leftChild(pos)] > heap[rightChild(pos)]) {
-                swap(pos, leftChild(pos));
-                recMaxHeapify(leftChild(pos));
-            } else {
-                swap(pos, rightChild(pos));
-                recMaxHeapify(rightChild(pos));
-            }
-        }
+        assert isMaxHeap();
     }
 
-    private void maxHeapify(int pos) {
-        int parent = pos;
-        while (parent <= size / 2) {
-            int child  = parent * 2;
-            if (child != size && heap[child] < heap[child + 1]) {
-                child++;
-            }
-            if (heap[parent] >= heap[child]) {
-                break;
-            }
-            swap(parent, child);
-            parent = child;
-        }
+    public boolean isEmpty() {
+        return n == 0;
     }
 
-    public void insert(int element) {
-        heap[++size] = element;
+    public int size() {
+        return n;
+    }
 
-        int current = size;
-        while (heap[current] > heap[parent(current)]) {
-            swap(current, parent(current));
-            current = parent(current);
+    public T max() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Priority queue underflow");
+        }
+        return pq[1];
+    }
+
+    /**
+     * helper function to double the size of the heap array
+     */
+    @SuppressWarnings("unchecked")
+    private void resize(int capacity) {
+        assert capacity > n;
+        T[] temp = (T[]) new Object[capacity];
+        if (n >= 0) {
+            System.arraycopy(pq, 1, temp, 1, n);
+        }
+        pq = temp;
+    }
+
+    /**
+     * Adds a new key to this priority queue.
+     *
+     * @param x the new key to add to this priority queue
+     */
+    public void insert(T x) {
+
+        // double size of array if necessary
+        if (n == pq.length - 1) {
+            resize(2 * pq.length);
+        }
+
+        // add x, and percolate it up to maintain heap invariant
+        pq[++n] = x;
+        swim(n);
+        assert isMaxHeap();
+    }
+
+    public T delMax() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Priority queue underflow");
+        }
+        T max = pq[1];
+        exch(1, n--);
+        sink(1);
+        // to avoid loitering and help with garbage collection
+        pq[n + 1] = null;
+        if (n > 0 && n == (pq.length - 1) / 4) {
+            resize(pq.length / 2);
+        }
+        assert isMaxHeap();
+        return max;
+    }
+
+    /**
+     * bottom to top
+     * @param k the index of moving element
+     */
+    private void swim(int k) {
+        while (k > 1 && less(k / 2, k)) {
+            exch(k, k / 2);
+            k = k / 2;
         }
     }
 
     /**
-     * Remove an element from max heap
+     * top to bottom
+     * @param k the index of moving element
      */
-    public int extractMax() {
-        int popped = heap[1];
-        heap[1] = heap[size--];
-        // recMaxHeapify(1);
-        maxHeapify(1);
-        return popped;
+    private void sink(int k) {
+        while (2 * k <= n) {
+            int child = 2 * k;
+            if (child < n && less(child, child + 1)) {
+                child++;
+            }
+            if (!less(k, child)) {
+                break;
+            }
+            exch(k, child);
+            k = child;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private boolean less(int i, int j) {
+        if (comparator == null) {
+            return ((Comparable<T>) pq[i]).compareTo(pq[j]) < 0;
+        } else {
+            return comparator.compare(pq[i], pq[j]) < 0;
+        }
+    }
+
+    private void exch(int i, int j) {
+        T swap = pq[i];
+        pq[i] = pq[j];
+        pq[j] = swap;
+    }
+
+    /**
+     * is pq[1..n] a max heap?
+     * @return isMaxHeap
+     */
+    private boolean isMaxHeap() {
+        for (int i = 1; i <= n; i++) {
+            if (pq[i] == null) {
+                return false;
+            }
+        }
+        for (int i = n + 1; i < pq.length; i++) {
+            if (pq[i] != null) {
+                return false;
+            }
+        }
+        if (pq[0] != null) {
+            return false;
+        }
+        return isMaxHeapOrdered(1);
+    }
+
+    /**
+     * is subtree of pq[1..n] rooted at k a max heap?
+     * @param k the root index of subtree
+     * @return isMaxHeapOrdered
+     */
+    private boolean isMaxHeapOrdered(int k) {
+        if (k > n) {
+            return true;
+        }
+        int left = 2 * k;
+        int right = 2 * k + 1;
+        if (left <= n && less(k, left)) {
+            return false;
+        }
+        if (right <= n && less(k, right)) {
+            return false;
+        }
+        return isMaxHeapOrdered(left) && isMaxHeapOrdered(right);
     }
 
     @Override
-    public String toString() {
+    public Iterator<T> iterator() {
+        return new HeapIterator();
+    }
 
-        StringBuilder str = new StringBuilder();
-        str.append("MaxHeap{ \n");
+    private class HeapIterator implements Iterator<T> {
 
-        for (int i = 1; i <= size / 2; i++) {
-            str.append("\t").
-                    append("PARENT : ").append(heap[i]).
-                    append(" LEFT CHILD : ").append(heap[2 * i]);
-            if (2 * i + 1 <= size) {
-                str.append(" RIGHT CHILD :").append(heap[2 * i + 1]);
+        // create a new pq
+        private final MaxPQ<T> copy;
+
+        // add all items to copy of heap
+        // takes linear time since already in heap order so no keys move
+        public HeapIterator() {
+            if (comparator == null) {
+                copy = new MaxPQ<>(size());
+            } else {
+                copy = new MaxPQ<>(size(), comparator);
             }
-            str.append("\n");
+            for (int i = 1; i <= n; i++) {
+                copy.insert(pq[i]);
+            }
         }
-        str.append("}");
 
-        return str.toString();
+        @Override
+        public boolean hasNext() {
+            return !copy.isEmpty();
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return copy.delMax();
+        }
     }
 
     public static void main(String[] args) {
-        MaxHeap maxHeap = new MaxHeap(15);
-        maxHeap.insert(5);
-        maxHeap.insert(3);
-        maxHeap.insert(17);
-        maxHeap.insert(10);
-        maxHeap.insert(84);
-        maxHeap.insert(19);
-        maxHeap.insert(6);
-        maxHeap.insert(22);
-        maxHeap.insert(9);
+        MaxPQ<Integer> pq = new MaxPQ<>();
 
-        System.out.println(maxHeap.toString());
-        System.out.println("The max val is " + maxHeap.extractMax());
-        System.out.println(maxHeap.toString());
+        pq.insert(5);
+        pq.insert(3);
+        pq.insert(17);
+        pq.insert(10);
+        pq.insert(84);
+        pq.insert(19);
+        pq.insert(6);
+        pq.insert(22);
+        pq.insert(9);
+
+        Integer deMax = pq.delMax();
+        System.out.println("The max val is " + deMax);
+
+        for (int t : pq) {
+            System.out.println(t);
+        }
     }
+
 }
 ```
 
