@@ -83,8 +83,8 @@ description: 数据结构总结
 **复杂度的渐进表示法**
 
 * $$T(n) = O(f(n))$$ 表示存在常数 $$C > 0, n_0 > 0$$ 使得当 $$n \ge n_0$$ 时有 $$T(n) \le C \cdot f(n)$$ 
-* $$T(n) = \Omega (f(n))$$ 表示存在常数 $$C > 0, n_0 > 0$$ 使得当 $$n \ge n_0$$ 时有 $$T(n) \ge C \cdot g(n)$$ 
-* $$T(n) = \Theta (f(n))$$ 表示同时有 $$T(n) = O(h(n))$$ 和 $$T(n) = \Omega (h(n))$$ 
+* $$T(n) = \Omega (g(n))$$ 表示存在常数 $$C > 0, n_0 > 0$$ 使得当 $$n \ge n_0$$ 时有 $$T(n) \ge C \cdot g(n)$$ 
+* $$T(n) = \Theta (h(n))$$ 表示同时有 $$T(n) = O(h(n))$$ 和 $$T(n) = \Omega (h(n))$$ 
 
 
 
