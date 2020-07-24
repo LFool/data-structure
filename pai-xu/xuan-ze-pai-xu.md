@@ -74,7 +74,7 @@ public class Selection {
         for (int i = 0; i < n; i++) {
             int min = i;
             for (int j = i; j < n; j++) {
-                if (SortUtil.less(comparator, j, min)) {
+                if (SortUtil.less(comparator, arr[j], arr[min])) {
                     min = j;
                 }
             }
