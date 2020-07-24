@@ -20,6 +20,7 @@
 * [排序](pai-xu/README.md)
   * [选择排序](pai-xu/xuan-ze-pai-xu.md)
   * [插入排序](pai-xu/cha-ru-pai-xu.md)
+  * [比较选择排序和插入排序](pai-xu/bi-jiao-xuan-ze-pai-xu-he-cha-ru-pai-xu.md)
 * [常用算法](chang-yong-suan-fa/README.md)
   * [排序](chang-yong-suan-fa/pai-xu.md)
   * [二叉树遍历](chang-yong-suan-fa/er-cha-shu-bian-li.md)
